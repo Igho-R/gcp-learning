@@ -1,0 +1,9 @@
+Day 2 - 16 July 2026
+Coded by: Igho-R
+VM: day2-vm
+Zone: europe-west2-a (London)
+IP: 34.39.106.161
+Status: RUNNING
+SSH: Success - printed Hello from London
+Project: sponsor-vpc-lab
+Skills: bash variables, gcloud compute, SSH keys

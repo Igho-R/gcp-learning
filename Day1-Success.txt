@@ -1,0 +1,6 @@
+===== IGHO ROLAND - FIRST DAY IN CLOUD - 16 JULY 2026 =====
+/home/igho/cloud-lab
+hello.text
+account = igho.roland1983@gmail.com
+project = sponsor-vpc-lab
+gs://sponsor-vpc-lab-igho-2026/hello.text

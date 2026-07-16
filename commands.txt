@@ -1,0 +1,1 @@
+I installed WSL2 + Ubuntu + gcloud on 16 July 2026
