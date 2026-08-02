@@ -1,3 +1,5 @@
 gcloud compute networks create sponsor-vpc --project=sponsor-vpc-lab --subnet-mode=custom --bgp-routing-mode=regional
 gcloud compute networks subnets create sponsor-subnet --project=sponsor-vpc-lab --network=sponsor-vpc --region=europe-west2 --range=10.10.0.0/24
 gcloud compute firewall-rules create sponsor-allow-internal --project=sponsor-vpc-lab --network=sponsor-vpc --allow=tcp:0-65535,udp:0-65535,icmp --source-ranges=10.10.0.0/24
+gcloud compute firewall-rules create sponsor-allow-ssh --project=sponsor-vpc-lab --network=sponsor-vpc --allow=tcp:22 --source-ranges=0.0.0.0/0
+gcloud compute instances create sponsor-vm --project=sponsor-vpc-lab --zone=europe-west2-a --machine-type=e2-medium --subnet=sponsor-subnet --tags=sponsor-vm --image-family=debian-12 --image-project=debian-cloud --boot-disk-size=20GB
