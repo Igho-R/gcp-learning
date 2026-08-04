@@ -1,0 +1,166 @@
+# Day 4 Audit - Prove Custom VPC Lab Exists
+# Date: $(date)
+# Project: sponsor-vpc-lab
+
+=== 1. VPC: sponsor-vpc ===
+autoCreateSubnetworks: false
+creationTimestamp: '2026-07-17T13:47:08.889-07:00'
+description: Custom VPC for UK sponsorship portfolio - Day 3
+id: '3237949480686266915'
+kind: compute#network
+name: sponsor-vpc
+networkFirewallPolicyEnforcementOrder: AFTER_CLASSIC_FIREWALL
+routingConfig:
+  bgpBestPathSelectionMode: LEGACY
+  routingMode: REGIONAL
+selfLink: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/global/networks/sponsor-vpc
+selfLinkWithId: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/global/networks/3237949480686266915
+subnetworks:
+- https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/regions/europe-west2/subnetworks/sponsor-subnet
+x_gcloud_bgp_routing_mode: REGIONAL
+x_gcloud_subnet_mode: CUSTOM
+
+=== 2. SUBNET: sponsor-subnet ===
+allowSubnetCidrRoutesOverlap: false
+creationTimestamp: '2026-07-17T14:48:55.288-07:00'
+fingerprint: ekRENzKqoCQ=
+gatewayAddress: 10.10.0.1
+id: '8596562330869243304'
+ipCidrRange: 10.10.0.0/24
+kind: compute#subnetwork
+name: sponsor-subnet
+network: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/global/networks/sponsor-vpc
+privateIpGoogleAccess: false
+privateIpv6GoogleAccess: DISABLE_GOOGLE_ACCESS
+purpose: PRIVATE
+region: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/regions/europe-west2
+selfLink: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/regions/europe-west2/subnetworks/sponsor-subnet
+stackType: IPV4_ONLY
+
+=== 3. FIREWALL: internal ===
+allowed:
+- IPProtocol: tcp
+  ports:
+  - 0-65535
+- IPProtocol: udp
+  ports:
+  - 0-65535
+- IPProtocol: icmp
+creationTimestamp: '2026-07-17T14:56:08.721-07:00'
+description: Allow internal
+direction: INGRESS
+disabled: false
+id: '5849176084963596823'
+kind: compute#firewall
+logConfig:
+  enable: false
+name: sponsor-allow-internal
+network: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/global/networks/sponsor-vpc
+priority: 1000
+selfLink: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/global/firewalls/sponsor-allow-internal
+sourceRanges:
+- 10.10.0.0/24
+
+=== 4. FIREWALL: ssh ===
+allowed:
+- IPProtocol: tcp
+  ports:
+  - '22'
+creationTimestamp: '2026-07-17T14:57:22.842-07:00'
+description: Allow SSH
+direction: INGRESS
+disabled: false
+id: '8524383361055529901'
+kind: compute#firewall
+logConfig:
+  enable: false
+name: sponsor-allow-ssh
+network: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/global/networks/sponsor-vpc
+priority: 1000
+selfLink: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/global/firewalls/sponsor-allow-ssh
+sourceRanges:
+- 0.0.0.0/0
+
+=== 5. VM: sponsor-vm ===
+canIpForward: false
+cpuPlatform: AMD Rome
+creationTimestamp: '2026-07-17T14:59:11.131-07:00'
+deletionProtection: false
+description: VM in custom VPC Day 3
+disks:
+- architecture: X86_64
+  autoDelete: true
+  boot: true
+  deviceName: persistent-disk-0
+  diskSizeGb: '20'
+  guestOsFeatures:
+  - type: UEFI_COMPATIBLE
+  - type: VIRTIO_SCSI_MULTIQUEUE
+  - type: GVNIC
+  - type: SEV_CAPABLE
+  - type: SEV_LIVE_MIGRATABLE_V2
+  index: 0
+  interface: SCSI
+  kind: compute#attachedDisk
+  licenses:
+  - https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-12-bookworm
+  mode: READ_WRITE
+  source: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/zones/europe-west2-a/disks/sponsor-vm
+  type: PERSISTENT
+fingerprint: 7l3R_2lK6NA=
+id: '4523474174957001536'
+kind: compute#instance
+labelFingerprint: 42WmSpB8rSM=
+lastStartTimestamp: '2026-07-17T14:59:16.991-07:00'
+machineType: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/zones/europe-west2-a/machineTypes/e2-medium
+metadata:
+  fingerprint: oWgXTOMUyyo=
+  kind: compute#metadata
+name: sponsor-vm
+networkInterfaces:
+- accessConfigs:
+  - kind: compute#accessConfig
+    name: external-nat
+    natIP: 35.197.209.150
+    networkTier: PREMIUM
+    type: ONE_TO_ONE_NAT
+  fingerprint: -bGkOoWc_bI=
+  kind: compute#networkInterface
+  name: nic0
+  network: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/global/networks/sponsor-vpc
+  networkIP: 10.10.0.2
+  stackType: IPV4_ONLY
+  subnetwork: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/regions/europe-west2/subnetworks/sponsor-subnet
+resourceStatus:
+  effectiveInstanceMetadata:
+    vmDnsSettingMetadataValue: ZonalOnly
+satisfiesPzi: true
+scheduling:
+  automaticRestart: true
+  onHostMaintenance: MIGRATE
+  preemptible: false
+  provisioningModel: STANDARD
+selfLink: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/zones/europe-west2-a/instances/sponsor-vm
+serviceAccounts:
+- email: 177948071231-compute@developer.gserviceaccount.com
+  scopes:
+  - https://www.googleapis.com/auth/devstorage.read_only
+  - https://www.googleapis.com/auth/logging.write
+  - https://www.googleapis.com/auth/monitoring.write
+  - https://www.googleapis.com/auth/pubsub
+  - https://www.googleapis.com/auth/service.management.readonly
+  - https://www.googleapis.com/auth/servicecontrol
+  - https://www.googleapis.com/auth/trace.append
+shieldedInstanceConfig:
+  enableIntegrityMonitoring: true
+  enableSecureBoot: false
+  enableVtpm: true
+shieldedInstanceIntegrityPolicy:
+  updateAutoLearnPolicy: true
+startRestricted: false
+status: RUNNING
+tags:
+  fingerprint: wwD00sULT0k=
+  items:
+  - sponsor-vm
+zone: https://www.googleapis.com/compute/v1/projects/sponsor-vpc-lab/zones/europe-west2-a
